@@ -1,37 +1,53 @@
 <?php
 session_start();
-if(!$_SESSION["Active"]==true)
+if($_SESSION["Active"]==true)
 {
 ?>
 <script type="text/javascript">
-    location.href = "index.php";
+    location.href = "Registro.php";
 </script>
 <?php
 }
 require "Tools/BD/PDO.php";
 if(isset($_POST["Token"]))
 {
-    $name=$_POST["name"];
-    $email=$_POST["email"];
-    $phone=$_POST["phone"];
-    $partner=$_POST["partner"];
-    
+    $user=$_POST["user"];
+    $pass=sha1($_POST["pass"]);
+
     $Token=$_POST["Token"];
 
     if($Token=="6090adf5f08ee5d16a8f13c78e47415b82827a9c")
     {
-        $Q="INSERT INTO `Participants` (`Id_Participant`, `Name`, `Email`, `Phone`, `Partner`, `Created_at`, `Code`) VALUES (NULL, '$name', '$email', '$phone', '$partner', CURRENT_TIMESTAMP, 'NO')";
+        $Q="SELECT * from Users where Document='$user' and Pass='$pass'";
         if($db->query($Q))
         {
-            $Codigo=$db->lastInsertId();
+            $cont=0;
+            foreach ($db->query($Q) as $Row) {
+                $cont++;
+                break;
+            }
+            if($cont==1)
+            {
+                session_start();
+                $_SESSION["Usuario"]=$user;
+                $_SESSION["Active"]=true;
+                ?>
+                <script type="text/javascript">
+                    location.href="Registro.php";
+                </script>
+                <?php
+            }
+            else
+            {
             ?>
             <script type="text/javascript">
-                window.alert("Se ha registrado satisfactoriamente, el código de usuario es: <?=$Codigo?>");
+                window.alert("Por favor verifique usuario y clave");
             </script>
-            <?php
+            <?php    
+            }
+            
         }
     }
-
 }
 ?>
 <!DOCTYPE html>
@@ -56,16 +72,16 @@ if(isset($_POST["Token"]))
             <!-- <img src="images/signup-bg.jpg" alt=""> -->
             <div class="container">
                 <div class="signup-content">
-                    <form method="POST" action="Codigo.php" id="signup-form" class="signup-form">
+                    <form method="POST" action="" id="signup-form" class="signup-form">
                         <h2 class="form-title">Vísita, registra y gana!</h2>
                         <div class="form-group">
-                            <input type="number" maxlength="5" class="form-input" name="code" id="name" placeholder="Codigo de usuario" required/>
+                            <input type="text"  class="form-input" name="user"  placeholder="Documento" required/>
                         </div>
                         <div class="form-group">
-                            <input type="number" maxlength="10" class="form-input" name="phone" id="email" placeholder="Teléfono de contacto" required/>
+                            <input type="password"  class="form-input" name="pass" placeholder="Clave" required/>
                         </div>
                         
-                        <input type="hidden" value="6090adf5f08ee5d16a8f13c78e47415b82827a9c"  name="Token">
+                        <input type="hidden" value="6090adf5f08ee5d16a8f13c78e47415b82827a9c" name="Token">
                         <!--<div class="form-group">
                             <input type="text" class="form-input" name="password" id="password" placeholder="Password"/>
                             <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
@@ -73,12 +89,9 @@ if(isset($_POST["Token"]))
                         <div class="form-group">
                             <input type="password" class="form-input" name="re_password" id="re_password" placeholder="Repeat your password"/>
                         </div>-->
+                        
                         <div class="form-group">
-                            <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" required/>
-                            <label for="agree-term" class="label-agree-term"><span><span></span></span>Acepto la <a href="/Terminos.html" class="term-service">mecánica de juego</a></label>
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" name="submit" id="submit" class="form-submit" value="Continuar"/>
+                            <input type="submit" name="submit" id="submit" class="form-submit" value="Ingresar"/>
                         </div>
                     </form>
                     <!--<p class="loginhere">

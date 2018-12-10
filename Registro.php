@@ -1,4 +1,14 @@
 <?php
+session_start();
+if(!$_SESSION["Active"]==true)
+{
+?>
+<script type="text/javascript">
+    location.href = "index.php";
+</script>
+<?php
+}
+$Registro=$_SESSION["Usuario"];
 require "Tools/BD/PDO.php";
 if(isset($_POST["Token"]))
 {
@@ -11,7 +21,7 @@ if(isset($_POST["Token"]))
 
     if($Token=="6090adf5f08ee5d16a8f13c78e47415b82827a9c")
     {
-        $Q="INSERT INTO `Participants` (`Id_Participant`, `Name`, `Email`, `Phone`, `Partner`, `Created_at`, `Code`) VALUES (NULL, '$name', '$email', '$phone', '$partner', CURRENT_TIMESTAMP, 'NO')";
+        $Q="INSERT INTO `Participants` (`Id_Participant`, `Name`, `Email`, `Phone`, `Partner`, `Created_at`, `Code`, `Registro`) VALUES (NULL, '$name', '$email', '$phone', '$partner', CURRENT_TIMESTAMP, 'NO', '$Registro')";
         if($db->query($Q))
         {
             $Codigo=$db->lastInsertId();

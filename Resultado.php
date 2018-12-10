@@ -1,4 +1,13 @@
 <?php
+session_start();
+if(!$_SESSION["Active"]==true)
+{
+?>
+<script type="text/javascript">
+    location.href = "index.php";
+</script>
+<?php
+}
 require "Tools/BD/PDO.php";
 if(isset($_POST["Code"]))
 {
