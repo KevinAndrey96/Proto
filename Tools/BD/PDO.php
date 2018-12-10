@@ -1,6 +1,6 @@
 <?php 
     $dbname = 'interwor_concurso';
-    $host = '69.55.59.217';
+    $host = 'localhost';
     $username= 'interwor_admin';
     $password = 'Proto2018@@';
  
