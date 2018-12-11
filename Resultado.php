@@ -13,7 +13,7 @@ if(isset($_POST["Code"]))
 {
     $U=$_POST["Code"];
     $Ganador=false;
-    $Secret="f0ff229d5a0ddd0bf28867ffbc45cfe29b4d7959";
+    $Secret="67e29d8e70cdd6247211eeba9a12bc64d181bc82";
 
     $C1=$_POST["C1"];
     $C2=$_POST["C2"];
