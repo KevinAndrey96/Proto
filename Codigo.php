@@ -18,7 +18,7 @@ if(isset($_POST["Token"]))
     if($Token=="6090adf5f08ee5d16a8f13c78e47415b82827a9c")
     {
         $cont=0;
-        $Q="SELECT * from Participants where Id_Participant = $code and Phone = $phone";
+        $Q="SELECT * from Participants where Id_Participant = $code and Telefono = $phone";
         foreach ($db->query($Q) as $Row) {
             $cont++;
             break;
@@ -48,10 +48,10 @@ if(isset($_POST["Token"]))
                         <!-- <img src="images/signup-bg.jpg" alt=""> -->
                         <div class="container">
                             <div class="signup-content">
-                                <form method="POST" id="signup-form" class="signup-form" action="Resultado.php">
+                                <form method="POST" id="signup-form" class="signup-form" action="Cargando.php">
                                     <br>
                                     <h2 class="form-title">¡Vísita, registra y gana!</h2>
-                                    <h2 class="form-title"><?=$Row["Name"]?></h2>
+                                    <h2 class="form-title"><?=$Row["Nombre"]?></h2>
                                     <br>
                                     <div class="row">
                                         <center>

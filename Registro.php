@@ -8,7 +8,7 @@ if(!$_SESSION["Active"]==true)
 </script>
 <?php
 }
-$Registro=$_SESSION["Usuario"];
+//$Registro=$_SESSION["Nombre"];
 require "Tools/BD/PDO.php";
 if(isset($_POST["Token"]))
 {
@@ -16,12 +16,20 @@ if(isset($_POST["Token"]))
     $email=$_POST["email"];
     $phone=$_POST["phone"];
     $partner=$_POST["partner"];
-    
+    $partner_phone=$_POST["partner_phone"];
+    $civil_status=$_POST["civil_status"];
+    $age=$_POST["age"];
+    $job=$_POST["job"];
+    $neigthborhod=$_POST["neigthborhod"];
+    $buys=$_POST["buys"];
+    $observations=$_POST["observations"];
+    $opc=$_POST["opc"];
+
     $Token=$_POST["Token"];
 
     if($Token=="6090adf5f08ee5d16a8f13c78e47415b82827a9c")
     {
-        $Q="INSERT INTO `Participants` (`Id_Participant`, `Name`, `Email`, `Phone`, `Partner`, `Created_at`, `Code`, `Registro`) VALUES (NULL, '$name', '$email', '$phone', '$partner', CURRENT_TIMESTAMP, 'NO', '$Registro')";
+        $Q="INSERT INTO `Participants` (`Id_Participant`, `Nombre`, `Email`, `Telefono`, `Acompanante`, `Visita`, `Codigo`, `OPC`, `Estado_civil`, `Edad`, `Ocupacion`, `Barrio`, `Compras`, `Observaciones`) VALUES (NULL, '$name', '$email', '$phone', '$partner', CURRENT_TIMESTAMP, 'NO', '$opc', '$civil_status', '$age', '$job', '$neigthborhod', '$buys', '$observations')";
         if($db->query($Q))
         {
             $Codigo=$db->lastInsertId();
@@ -60,17 +68,67 @@ if(isset($_POST["Token"]))
                     <form method="POST" action="" id="signup-form" class="signup-form">
                         <h2 class="form-title">Vísita, registra y gana!</h2>
                         <div class="form-group">
-                            <input type="text" class="form-input" name="name" id="name" placeholder="Nombre completo" required/>
+                            <input type="text" class="form-input" name="name" placeholder="Nombre completo" required/>
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-input" name="email" id="email" placeholder="Correo electrónico" required/>
+                            <input type="email" class="form-input" name="email" placeholder="Correo electrónico"/>
                         </div>
                         <div class="form-group">
-                            <input type="number" class="form-input" name="phone" id="email" placeholder="Teléfono de contacto" required/>
+                            <input type="number" class="form-input" name="phone" placeholder="Teléfono de contacto" required/>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-input" name="partner" id="email" placeholder="Nombre de acompañante"/>
+                            <input type="text" class="form-input" name="partner" placeholder="Nombre de acompañante"/>
                         </div>
+                        <div class="form-group">
+                            <input type="number" class="form-input" name="partner_phone" placeholder="Teléfono de acompañante" />
+                        </div>
+                        <div class="form-group">
+                            <select class="form-input" name="civil_status">
+                                <option value="" disabled>--Estado Civil--</option>
+                                <option value="Casado">Casado</option>
+                                <option value="Soltero">Soltero</option>
+                                <option value="Union Libre">Union Libre</option>
+                                <option value="Separado">Separado</option>
+                                <option value="Viudo">Viudo</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-input" name="age" placeholder="Edad" />
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="job" placeholder="Ocupación" required/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="neigthborhod" placeholder="Barrio" required/>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-input" name="buys" required>
+                                <option value="" disabled>--Usualmente como paga sus compras--</option>
+                                <option value="T. Credito">T. Credito</option>
+                                <option value="T. Debito">T. Debito</option>
+                                <option value="Efectivo">Efectivo</option>
+                                <option value="Plataformas electrónicas">Plataformas electrónicas</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="observations" class="form-input" placeholder="Observaciones" ></textarea>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-input" name="opc" required>
+                                <option value="" disabled>--OPC--</option>
+                                <?php
+                                $Q="SELECT * from Users";
+                                foreach ($db->query($Q) as $Row) {
+                                    ?>
+                                        <option value="<?=$Row["Name"]?>"><?=$Row["Name"]?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
+                        </div>
+
+                        
+
                         <input type="hidden" value="6090adf5f08ee5d16a8f13c78e47415b82827a9c"  name="Token">
                         <!--<div class="form-group">
                             <input type="text" class="form-input" name="password" id="password" placeholder="Password"/>
@@ -81,7 +139,7 @@ if(isset($_POST["Token"]))
                         </div>-->
                         <div class="form-group">
                             <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" required/>
-                            <label for="agree-term" class="label-agree-term"><span><span></span></span>Acepto la <a href="/Terminos.html" class="term-service">mecánica de juego</a></label>
+                            <label for="agree-term" class="label-agree-term"><span><span></span></span>Acepto <a href="Terminos.html" class="term-service">terminos y condiciones</a></label>
                         </div>
                         <div class="form-group">
                             <input type="submit" name="submit" id="submit" class="form-submit" value="Continuar"/>

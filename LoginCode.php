@@ -8,31 +8,6 @@ if(!$_SESSION["Active"]==true)
 </script>
 <?php
 }
-require "Tools/BD/PDO.php";
-if(isset($_POST["Token"]))
-{
-    $name=$_POST["name"];
-    $email=$_POST["email"];
-    $phone=$_POST["phone"];
-    $partner=$_POST["partner"];
-    
-    $Token=$_POST["Token"];
-
-    if($Token=="6090adf5f08ee5d16a8f13c78e47415b82827a9c")
-    {
-        $Q="INSERT INTO `Participants` (`Id_Participant`, `Name`, `Email`, `Phone`, `Partner`, `Created_at`, `Code`) VALUES (NULL, '$name', '$email', '$phone', '$partner', CURRENT_TIMESTAMP, 'NO')";
-        if($db->query($Q))
-        {
-            $Codigo=$db->lastInsertId();
-            ?>
-            <script type="text/javascript">
-                window.alert("Se ha registrado satisfactoriamente, el código de usuario es: <?=$Codigo?>");
-            </script>
-            <?php
-        }
-    }
-
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,7 +32,7 @@ if(isset($_POST["Token"]))
             <div class="container">
                 <div class="signup-content">
                     <form method="POST" action="Codigo.php" id="signup-form" class="signup-form">
-                        <h2 class="form-title">Vísita, registra y gana!</h2>
+                        <h2 class="form-title">¡Vísita, registra y gana!</h2>
                         <div class="form-group">
                             <input type="number" maxlength="5" class="form-input" name="code" id="name" placeholder="Codigo de usuario" required/>
                         </div>
@@ -66,16 +41,10 @@ if(isset($_POST["Token"]))
                         </div>
                         
                         <input type="hidden" value="6090adf5f08ee5d16a8f13c78e47415b82827a9c"  name="Token">
-                        <!--<div class="form-group">
-                            <input type="text" class="form-input" name="password" id="password" placeholder="Password"/>
-                            <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-input" name="re_password" id="re_password" placeholder="Repeat your password"/>
-                        </div>-->
+                        
                         <div class="form-group">
                             <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" required/>
-                            <label for="agree-term" class="label-agree-term"><span><span></span></span>Acepto la <a href="/Terminos.html" class="term-service">mecánica de juego</a></label>
+                            <label for="agree-term" class="label-agree-term"><span><span></span></span>Acepto <a href="Terminos.html" class="term-service">terminos y condiciones</a></label>
                         </div>
                         <div class="form-group">
                             <input type="submit" name="submit" id="submit" class="form-submit" value="Continuar"/>

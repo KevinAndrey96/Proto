@@ -31,7 +31,8 @@ if(isset($_POST["Code"]))
     }
     $Q="SELECT * from Participants where Id_Participant='$U'";
     foreach ($db->query($Q) as $Row) {
-        if($Row["Code"]!="NO")
+        //if($Row["Codigo"]!="NO")
+        if(1==2)
         {
             ?>
             <script type="text/javascript">
@@ -42,7 +43,7 @@ if(isset($_POST["Code"]))
         }
         else
         {
-            $Q="UPDATE Participants set Code = '$Codigo2' where Id_Participant='$U' and Code='NO'";
+            $Q="UPDATE Participants set Codigo = '$Codigo2' where Id_Participant='$U' and Codigo='NO'";
             if($db->query($Q))
             {
                 if($db->query($Q))
@@ -74,16 +75,23 @@ if(isset($_POST["Code"]))
                                         if($Ganador==true)
                                         {
                                             ?>
+                                            <audio autoplay src="sounds/Gana.mp3"></audio>
                                             <h2 class="form-title">¡Felicitaciones!</h2>
                                             <h2 class="form-title">Has sido el afortunado ganador del concurso ¡vísita, registra y gana!...</h2>
-
+                                            <center><p>Gracias por participar</p></center>
+                                            <br>
+                                            <center><img height="100" width="100" src="images/gana.png"></center>
                                             <?php
                                         }
                                         else
                                         {
                                             ?>
+                                            <audio autoplay src="sounds/Pierde.mp3"></audio>
                                             <h2 class="form-title">¡Lo sentimos!</h2>
                                             <h2 class="form-title">No has sido el ganador del concurso ¡vísita, registra y gana!...</h2>
+                                            <center><p>Gracias por participar</p></center>
+                                            <br>
+                                            <center><img height="100" width="100" src="images/pierde.png"></center>
                                             <?php
                                         }
                                         ?>

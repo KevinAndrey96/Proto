@@ -1,6 +1,6 @@
 <?php
 session_start();
-if($_SESSION["Active"]==true)
+if(@$_SESSION["Active"]==true)
 {
 ?>
 <script type="text/javascript">
@@ -14,6 +14,8 @@ if(isset($_POST["Token"]))
     $user=$_POST["user"];
     $pass=sha1($_POST["pass"]);
 
+    $Name="";
+
     $Token=$_POST["Token"];
 
     if($Token=="6090adf5f08ee5d16a8f13c78e47415b82827a9c")
@@ -23,6 +25,7 @@ if(isset($_POST["Token"]))
         {
             $cont=0;
             foreach ($db->query($Q) as $Row) {
+                $Name=$Row["Name"];
                 $cont++;
                 break;
             }
@@ -30,6 +33,7 @@ if(isset($_POST["Token"]))
             {
                 session_start();
                 $_SESSION["Usuario"]=$user;
+                $_SESSION["Nombre"]=$Name;
                 $_SESSION["Active"]=true;
                 ?>
                 <script type="text/javascript">
