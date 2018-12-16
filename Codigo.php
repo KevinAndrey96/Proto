@@ -12,13 +12,14 @@ require "Tools/BD/PDO.php";
 if(isset($_POST["Token"]))
 {
     $code=$_POST["code"];
-    $phone=$_POST["phone"];    
+    //$phone=$_POST["phone"];
     $Token=$_POST["Token"];
 
     if($Token=="6090adf5f08ee5d16a8f13c78e47415b82827a9c")
     {
         $cont=0;
-        $Q="SELECT * from Participants where Id_Participant = $code and Telefono = $phone";
+        //$Q="SELECT * from Participants where Id_Participant = $code and Telefono = $phone";
+        $Q="SELECT * from Participants where Id_Participant = $code";
         foreach ($db->query($Q) as $Row) {
             $cont++;
             break;

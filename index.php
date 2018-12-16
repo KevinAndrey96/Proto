@@ -79,7 +79,7 @@ if(isset($_POST["Token"]))
                     <form method="POST" action="" id="signup-form" class="signup-form">
                         <h2 class="form-title">Vísita, registra y gana!</h2>
                         <div class="form-group">
-                            <input type="text"  class="form-input" name="user"  placeholder="Documento" required/>
+                            <input type="text"  class="form-input" name="user"  placeholder="Código" required/>
                         </div>
                         <div class="form-group">
                             <input type="password"  class="form-input" name="pass" placeholder="Clave" required/>

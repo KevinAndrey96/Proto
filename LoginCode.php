@@ -36,9 +36,9 @@ if(!$_SESSION["Active"]==true)
                         <div class="form-group">
                             <input type="number" maxlength="5" class="form-input" name="code" id="name" placeholder="Codigo de usuario" required/>
                         </div>
-                        <div class="form-group">
-                            <input type="number" maxlength="10" class="form-input" name="phone" id="email" placeholder="Teléfono de contacto" required/>
-                        </div>
+                        <!--<div class="form-group">
+                            <input type="number" maxlength="10" class="form-input" name="phone" id="email" placeholder="Teléfono de contacto" />
+                        </div>-->
                         
                         <input type="hidden" value="6090adf5f08ee5d16a8f13c78e47415b82827a9c"  name="Token">
                         
